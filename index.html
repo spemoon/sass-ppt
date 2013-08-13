@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>SCSS</title>
+    
+    <meta name="description" content="">
+    <meta name="author" content="Caleb Troughton">
+    <meta name="keywords" content="Caleb Troughton">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    
+    <!-- Core and extension CSS files -->
+    <link rel="stylesheet" href="core/deck.core.css">
+    <link rel="stylesheet" href="extensions/goto/deck.goto.css">
+    <link rel="stylesheet" href="extensions/menu/deck.menu.css">
+    <link rel="stylesheet" href="extensions/navigation/deck.navigation.css">
+    <link rel="stylesheet" href="extensions/status/deck.status.css">
+    <link rel="stylesheet" href="extensions/hash/deck.hash.css">
+    
+    <!-- Theme CSS files (menu swaps these out) -->
+    <!-- <link rel="stylesheet" id="style-theme-link" href="themes/style/neon.css"> -->
+    <link rel="stylesheet" id="transition-theme-link" href="themes/transition/horizontal-slide.css">
+    
+    <!-- Custom CSS just for this page -->
+    <link rel="stylesheet" href="introduction/introduction.css">
+    
+    <script src="modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+<div class="theme-menu">
+    <h2>Themes</h2> 
+    
+    <label for="style-themes">Style:</label>
+    <select id="style-themes">
+        <option selected value="themes/style/web-2.0.css">Web 2.0</option>
+        <option value="themes/style/swiss.css">Swiss</option>
+        <option value="themes/style/neon.css">Neon</option>
+        <option value="">None</option>
+    </select>
+    
+    <label for="transition-themes">Transition:</label>
+    <select id="transition-themes">
+        <option selected value="themes/transition/horizontal-slide.css">Horizontal Slide</option>
+        <option value="themes/transition/vertical-slide.css">Vertical Slide</option>
+        <option value="themes/transition/fade.css">Fade</option>
+        <option value="">None</option>
+    </select>
+</div>
+
+<section class="slide" id="title-slide">
+<h1>sass/scss<p>@李典</p></h1>
+</section>
+
+<section class="slide" id="how-to-overview">
+    <h2>sass/scss入门</h2>
+    <ol>
+        <li>
+            <h3><a href="#variables">变量(Variables)</a></h3>
+        </li>
+        <li>
+            <h3><a href="#nesting">嵌套(Nesting)</a></h3>
+        </li>
+        <li>
+            <h3><a href="#mixins">混合(Mixins)</a></h3>
+        </li>
+        <li>
+            <h3><a href="#selector_inheritance">继承(Selector Inheritance)</a></h3>
+        </li>
+    </ol>
+    <p><a href="http://sass-lang.com/" target="_blank">官网地址</a></p>
+</section>
+
+<section id="variables" class="slide">
+    <h2>变量(Variables)</h2>
+    <p>如果之前有了解过less的变量，可能会抱怨sass的变量，尤其是刚开始。less中有明显的全局变量和局部变量之分，但是到sass这边来，好像有点乱了，分不清了。其实不管sass的变量还是less变量都是有其设计的原理的，有着不一样的科学性，下面我们简单来了解下。</p>
+    <h3>全局变量和局部变量</h3>
+    <p>要了解sass或less的变量，有必要先了解下js的变量定义，先来一段js的代码：</p>
+<pre><code>var a = 1;
+(function(){
+    a = 5;
+})();
+console.log(a);//5
+</code></pre>
+    <p>上面这段代码，匿名函数里面的a因为没有使用var关键字来定义，所以当我们在函数外打印a的时候，得到的是5，改变了一开始定义的1</p>
+    <pre><code>var a = 1;
+(function(){
+    var a = 5;
+})();
+console.log(a);//1</code></pre>
+    <p>而这段代码，匿名函数里面的a使用了var关键字来定义，所以当我们在函数外打印a的时候，得到的是1，一开始定义的值。</p>
+    <p>其实sass的变量设计用的是上面两段代码中的第一段思想，即在局部不使用var来申明，而less用的是第二段思想，即局部使用var来申明，这就是很多人所说的为什么sass没有局部变量。</p>
+    <p>sass版：</p>
+    <pre><code>$color:red;
+p{
+    $color:blue;
+    color:$color;//blue
+}
+a{
+    color:$color;//blue
+}</code></pre>
+    <p>less版：</p>
+    <pre><code>@color:red;
+p{
+    @color:blue;
+    color:@color;//blue
+}
+a{
+    color:@color;//red
+}</code></pre>
+    <p>简单总结下：如果全局申明了一个变量a，sass中如果使用到局部中是属于改变a的值，所以后来所有的都是改变之后的值；而less中使用到局部变量则属于在局部重新定义a的值，不影响其他地方。说到底，其实sass和less的变量其实都是js变量的表现形式，两者都有其科学性，只是设计思路不同而已。</p>
+</section>
+<section id="nesting" class="slide">
+    <h2>Nesting</h2>
+</section>
+<section id="mixins" class="slide">
+
+</section>
+
+<section class="slide" id="selector_inheritance">
+    
+</section>
+
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<p class="deck-status">
+    <span class="deck-status-current"></span>
+    /
+    <span class="deck-status-total"></span>
+</p>
+
+<form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label>
+    <input type="number" name="slidenum" id="goto-slide">
+    <input type="submit" value="Go">
+</form>
+
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>-->
+  <script>window.jQuery || document.write('<script src="jquery-1.6.4.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="core/deck.core.js"></script>
+<script src="extensions/menu/deck.menu.js"></script>
+<script src="extensions/goto/deck.goto.js"></script>
+<script src="extensions/status/deck.status.js"></script>
+<script src="extensions/navigation/deck.navigation.js"></script>
+<script src="extensions/hash/deck.hash.js"></script>
+
+<!-- Specific to this page -->
+<script src="introduction/introduction.js"></script>
+
+</body>
+</html>
