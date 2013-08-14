@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="extensions/navigation/deck.navigation.css">
     <link rel="stylesheet" href="extensions/status/deck.status.css">
     <link rel="stylesheet" href="extensions/hash/deck.hash.css">
-    
+
     <!-- Theme CSS files (menu swaps these out) -->
     <!-- <link rel="stylesheet" id="style-theme-link" href="themes/style/neon.css"> -->
     <link rel="stylesheet" id="transition-theme-link" href="themes/transition/horizontal-slide.css">
@@ -115,6 +115,87 @@ a{
     color:@color;//red
 }</code></pre>
     <p>简单总结下：如果全局申明了一个变量a，sass中如果使用到局部中是属于改变a的值，所以后来所有的都是改变之后的值；而less中使用到局部变量则属于在局部重新定义a的值，不影响其他地方。说到底，其实sass和less的变量其实都是js变量的表现形式，两者都有其科学性，只是设计思路不同而已。</p>
+    <p><strong>那是不是sass没有局部变量这一说呢？</strong></p>
+    <pre><code>p{
+    $color:blue;
+    color:$color;//blue
+}
+a{
+    color:$color;//$color未定义
+}</code></pre>
+    <p>再来两段代码：</p>
+    <pre><code>p{
+    $color:blue;
+    color:$color;//blue
+
+    a{
+        color:$color;//blue
+    }   
+}</code></pre>
+    <p>这一段代码中，a嵌套在p中，然后在p元素中定义了1color这个变量，a里面是可以访问到1color变量的。</p>
+    <pre><code>p{
+    $color:blue;
+    color:$color;//blue
+
+    a{
+        $color:red;         
+        color:$color;//red
+    }
+
+    background-color:$color;//red
+
+    span{
+        color:$color;//red
+    }
+}
+div{
+    color:$color;//$color未定义
+}</code></pre>
+    <p>个人觉得正是由于这个，使得开发sass的小心定义变量，以避免污染；</p>
+
+    <h3>变量默认值!default</h3>
+    <p>个人觉得变量里面设计这个真的是非常的科学，感觉它可以从根本上解决css组件化开发.先看两段代码:</p>
+    <p>无!default:</p>
+    <pre><code>$color:red;
+$color:blue;
+p{
+    color:$color;//blue
+}</code></pre>
+    <p>无!default:</p>
+    <pre><code>$color:red;
+$color:blue !default;
+p{
+    color:$color;//red
+}</code></pre>
+    <p>sass编译css是从上到下的，后面会覆盖前面的，所以第一段无!default的解析的是blue，而第二段代码由于有了!default，打破了这个规则，使用了前面定义的red。有意思吧，当然这样的使用是体现不了它伟大的价值的。</p>
+    <p>作用：假设变量申明带有!default，那么如果在此申明之前没有这个变量的申明，则用这个值，反之如果之前有申明，则用申明的值。当然如果你先!default申明，然后再申明一次，那就没什么意思了，这就是基本的变量覆盖，第一次申明的有无!default都一样。所以你要区分这两种情况： </p>
+    <pre><code>
+//第一种，使用默认值 
+//变量申明带有!default，但是之前没有这个变量的申明 
+$color:blue !default;
+p{ color:$color;//blue }
+
+//第二种，使用前面定义的值
+$color:red; 
+//变量申明带有!default，但是前面还有这个变量的申明
+$color:blue !default;
+p{
+    color:$color;//red
+}
+
+//第三种错误的用法，先!default申明
+$color:red !default;
+$color:blue;</code></pre>
+    <p>第三种错误用法其实和下面的这个覆盖写法是一样一样的：</p>
+    <pre><code>//覆盖写法
+$color:red;
+$color:blue;</code></pre>
+
+    <p>--------------------------------------------华丽的分割线------------------------------------</p>
+    <p>其实长久以来，css之所以不能组件化开发，有两大原因：第一个是@import的样式不能合并在一个文件中（这里排除使用压缩工具来合并）；第二个问题就是这里说到的变量问题了。</p>
+    <p>看个例子吧， step-1</p>
+    
+    <p>--------------------------------------------变量完结------------------------------------</p>
 </section>
 <section id="nesting" class="slide">
     <h2>Nesting</h2>
