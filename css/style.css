@@ -1,1 +1,28 @@
-.img-border{border:1px solid #ccc;padding:2px}.img-rounded{border-radius:8px}.img-border{padding:5px}
+@charset "UTF-8";
+/*方法一：重新覆写*/
+/* line 20, ../sass/_imgstyle.scss */
+.img-border {
+  border: 1px solid #cccccc;
+  padding: 2px;
+}
+
+/* line 24, ../sass/_imgstyle.scss */
+.img-rounded {
+  border-radius: 8px;
+}
+
+/* line 4, ../sass/style.scss */
+.img-border {
+  padding: 5px;
+}
+
+/*方法二: 改变@include的参数
+@import 'imgstyle.scss';
+
+.img-border{
+    @include img-border($imgStyleBorder, 5px);
+}*/
+/*方法三: !default
+$imgStylePadding:  5px;
+@import 'imgstyle.scss';
+*/
