@@ -1,5 +1,19 @@
-@import 'imgstyle';
+/*方法一：重新覆写*/
+@import 'imgstyle.scss';
 
 .img-border{
     padding:5px;
 }
+
+/*方法二: 改变@include的参数
+@import 'imgstyle.scss';
+
+.img-border{
+    @include img-border($imgStyleBorder, 5px);
+}
+*/
+
+/*方法三: !default
+$imgStylePadding:  5px;
+@import 'imgstyle.scss';
+*/
