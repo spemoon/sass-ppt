@@ -194,6 +194,46 @@ $color:blue;</code></pre>
     <p>--------------------------------------------华丽的分割线------------------------------------</p>
     <p>其实长久以来，css之所以不能组件化开发，有两大原因：第一个是@import的样式不能合并在一个文件中（这里排除使用压缩工具来合并）；第二个问题就是这里说到的变量问题了。</p>
     <p>看个例子吧， step-1</p>
+    <h3>变量后面加...</h3>
+    <p>在css3出现以前，你是绝对没有看到过的，因为它就是为css3而设计的。css3在给css带来翻天覆地的变化之外，也给sass的@mixin传递参数带来纠结了。一般来说我们的@mixin传递的参数是以,来分隔的，但是css3的一些属性可以设置多个值，并且多个值以,分开，如box-shadow:0 0 3px rgba(0,0,0,0.3),inset 0 0 3px rgba(255,255,255,0.3);这让@mixin如何给box-shadow传递参数啊。所以这种变量后面加...的变量就出现了。</p>
+    <pre><code>@mixin box-shadow($shadow...){
+    -webkit-box-shadow:$shadow;
+    -moz-box-shadow:$shadow;
+    box-shadow:$shadow;
+}</code></pre>
+    <p>注意这种变量加...的方式只出现在传递参数中，你可以看到上面的大括号里面的变量都是没有...。除了box-shadow，gradient也可以用，反正能使用多个值的属性里面都可以用。</p>
+
+    <h3>变量用#{}包裹</h3>
+    <p>一般来说，我们设置的变量都是用于属性值的，而如果用在属性或者选择器上，就得以#{}包裹起来了。</p>
+    <pre><code>$btnClass: btn !default;
+$borderDirection:  top !default;
+
+.#{$btnClass}{
+    border-#{$borderDirection}:1px solid #ccc;
+}</code></pre>
+    <p>解析成CSS：</p>
+    <pre><code>.btn{
+    border-top:1px solid #ccc;
+}</code></pre>
+
+    <h3>多个变量一起申明</h3>
+    <p>其实这个还是很实用的，把多个相关的值写在一个变量里，然后通过nth($var,index)来获取第几个值。</p>
+    <pre><code>$linkColor: red blue !default;
+
+a{
+    color:nth($linkColor,1);
+
+    &:hover{
+        color:nth($linkColor,2);
+    }
+}</code></pre>
+
+    <pre><code>a {
+    color: red; 
+}
+a:hover {
+    color: blue; 
+}</code></pre>
     
     <p>--------------------------------------------变量完结------------------------------------</p>
 </section>
